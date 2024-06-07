@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppConfig {
 
-    @Value("${config.student-manager}")
+    @Value("${config.student.manager}")
     private String ws;
 
     @GetMapping("/config")

@@ -3,7 +3,8 @@ spring:
     name: ui-service
 
 config:
-  student-manager: http://localhost:8111/manage
+  student:
+    manager: http://localhost:8111/manage
 
 management:
   endpoints:
@@ -19,3 +20,13 @@ management:
     health:
       probes:
         enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+config:
+  student:
+    manager: http://integration:8111/manage
+
