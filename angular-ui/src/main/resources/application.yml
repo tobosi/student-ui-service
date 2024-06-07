@@ -19,11 +19,3 @@ management:
     health:
       probes:
         enabled: true
----
-spring:
-  config:
-    activate:
-        on-profile: docker
-
-config:
-  student-manager: http://integration-service/manage
