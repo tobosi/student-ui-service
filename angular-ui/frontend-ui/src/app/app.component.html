@@ -1,0 +1,18 @@
+<div class="app-container">
+  <div class="app-title">
+    <h1>Student Manager</h1>
+  </div>
+  <div class="navigation mt-4">
+    <!--@for (link of navigationService.links(); track link) {
+      <a class="" [className]="(navigationService.currentRoute().indexOf(link.url) !== -1) ? 'nav-item nav-item-activated':'nav-item'" (click)="navigate(link.url)">
+        {{ navigationService.currentRoute().indexOf(link.url) !== -1 }}
+        <span class="nav-item-text">{{ link.text }}</span>
+      </a>
+    }-->
+    <a class="" [className]="((navigationService.currentRoute() + '').indexOf(AppRoutes.SEARCH.valueOf()) !== -1) ? 'nav-item nav-item-activated':'nav-item'" (click)="navigate(AppRoutes.SEARCH.valueOf())">Search</a>
+    <a class="" [className]="((navigationService.currentRoute() + '').indexOf(AppRoutes.CREATE.valueOf()) !== -1) ? 'nav-item nav-item-activated':'nav-item'" (click)="navigate(AppRoutes.CREATE.valueOf())">Create</a>
+    <a class="nav-item">&nbsp;</a>
+  </div>
+  <router-outlet />
+</div>
+

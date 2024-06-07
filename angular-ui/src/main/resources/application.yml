@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ui-service
+
+config:
+  student-manager: http://localhost:8111/manage
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+---
+spring:
+  config:
+    activate:
+        on-profile: docker
+
+config:
+  student-manager: http://integration-service/manage

@@ -1,0 +1,84 @@
+<div class="page">
+  <h5 class="mt-5">Quick Search</h5>
+  <form [formGroup]="searchForm" class="needs-validation" novalidate>
+    <div class="row">
+      <div class="col-6">
+        <label for="searchBy" class="form-label">Search by <span class="text-danger">*</span></label>
+        <select class="form-select" aria-label="Select" formControlName="criteria" id="searchBy">
+          <option name="searchBy" value="" selected>Select</option>
+          <option name= "searchBy" *ngFor="let field of searchFields" [value]="field.value" selected>{{ field.display }}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="value" class="form-label">Search Criteria<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="value" formControlName="value">
+      </div>
+    </div>
+    <div class="row form-actions mt-4">
+      <div class="col-6">
+        <button [disabled]="searchForm.invalid" (click)="onSubmit($event)">Search</button>
+      </div>
+      <div class="col-6">
+        <button (click)="onCancel($event)">Clear</button>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z0 mt-4">
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="studentNo">
+          <th mat-header-cell *matHeaderCellDef> Student  No. </th>
+          <td mat-cell *matCellDef="let element"> {{ element.studentNo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef> Full Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.name+ " " + element.surname }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef> Cell No. </th>
+          <td mat-cell *matCellDef="let element"> +{{ element?.countryCode }}{{ element.mobile }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="currentScore">
+          <th mat-header-cell *matHeaderCellDef> Current Score </th>
+          <td mat-cell *matCellDef="let element"> {{ element.currentScore }}% </td>
+        </ng-container>
+
+        <ng-container matColumnDef="averageScore">
+          <th mat-header-cell *matHeaderCellDef> Average Score </th>
+          <td mat-cell *matCellDef="let element"> {{ convertToInt(element.average) }}% </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <tr>
+            <td mat-cell *matCellDef="let element; let i = $index">
+              <div class="actions">
+                <button class="action-button" (click)="onAddScore(element.studentNo)">ADD SCORE</button>
+                <button class="action-button" (click)="onEdit(element)"><mat-icon>edit</mat-icon></button>
+                <button class="action-button" (click)="onDelete(element.studentNo, i)"><mat-icon>delete</mat-icon></button>
+              </div>
+            </td>
+          </tr>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator (page)="onPage($event)" [length]="length" [pageSizeOptions]="[size()]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+  </form>
+</div>
